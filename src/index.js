@@ -1,4 +1,4 @@
-                                    */*The index.js file is the entry point of the application.*/*
+                                     /*The index.js file is the entry point of the application.*/
 
 
 /*Import dependencies that we need to use.*/
@@ -12,39 +12,37 @@ const cors = require('cors');
 
 const app = express();
 
-/* Dividimos o servidor para que suporte protocolo http, e o protocolo websocket que é  permite a comunicação em tempo real
-*/
+
+/*We divide the server so that it supports http protocol, and the protocol that is websocket allows real-time communication*/
+
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-/* Realizamos a conexao com o banco de dados */
+/* Connection to the database */
 
 mongoose.connect('mongodb+srv://librelon:marton2029@cluster0-qv9b1.mongodb.net/test?retryWrites=true&w=majority', {
     useNewUrlParser: true, 
 });
 
-/* Permitimos e repassamos a informação do io para todas as rotas, informações em tempo real para frontend, acesso ao .io dentro de todos os controllers*/
+/*We allow and pass information from io to all routes, real-time information for frontend, access to .io within all controllers*/
 
 app.use((req, res, next) => {
     req.io = io;
     next();
 })
 
-/*Utilizamos o cors para permitir que todas as urls de diferente ips diferentes servidores, possam acessar esse backend
-Sem isso aqui o react não consegue acessar a aplicação */
+/*We use cors to allow all urls from different ips different servers, can access this backend*/
+/*Without this here the react can not access the application*/
 
 app.use(cors());
 
-/*Rota para acessar arquivos estaticos que são imagens que fizemos uploads.*/
+/*Route to access static files that are images that we uploaded.*/
 
 app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads', 'resized')));     
 
-/*Cria-se um segundo arquivo separado de rotas para declarar as rotas da aplicação*/
+/*Create a second separate route file to declare the routes of the application*/
 
 app.use(require('./routes'));
 
 server.listen(3000);
-
-
-
         
