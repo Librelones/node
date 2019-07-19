@@ -1,13 +1,14 @@
-/* O arquivo index.js é o ponto de entrada da aplicação.*/
+                                    */*The index.js file is the entry point of the application.*/*
+
+
+/*Import dependencies that we need to use.*/
 
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
 
-/*Aqui realizamos a importação das dependencias que precisamos utilizar. 
-A mais importante delas é a express, que permite lidarmos com rotas, parametros e respostas de nossos clientes
-*/
+/*The most important of these is the const express = require('express'), which allows us to deal with routes, parameters and responses of our clients*/
 
 const app = express();
 
